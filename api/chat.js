@@ -21,7 +21,7 @@ function sanitize(str, max = 2000) {
 export default async function handler(req, res) {
 
   // CORS
-  const allowed = ['https://hasibpro-github-io-wy99.vercel.app', 'http://localhost:3000'];
+  const allowed = ['https://hasibpro-github-io-wy99.vercel.app', 'https://hasibpro-github-io.vercel.app', 'http://localhost:3000'];
   const origin  = req.headers.origin || '';
   if (allowed.includes(origin)) res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
   const cleanSystem = sanitize(system || '', 1000) ||
     'أنت مستشار خبير في التجارة الإلكترونية. أجب بشكل مختصر وعملي.';
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key غير موجود' });
 
   try {
